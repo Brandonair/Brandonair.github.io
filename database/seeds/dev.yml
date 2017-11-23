@@ -1,0 +1,258 @@
+#
+roles:
+  - id: 1
+    name: admin
+    display_name: Administrators
+  - id: 2
+    name: user
+    display_name: Pilot
+
+users:
+  - id: 1
+    name: Admin User
+    email: admin@phpvms.net
+    password: admin
+    rank_id: 1
+    airline_id: 1
+    home_airport_id: 1
+    curr_airport_id: 2
+    flights: 1
+    flight_time: 43200
+    created_at: now
+    updated_at: now
+  - id: 2
+    name: Carla Walters
+    email: carla.walters68@example.com
+    password: admin
+    rank_id: 1
+    airline_id: 1
+    home_airport_id: 2
+    curr_airport_id: 2
+    flights: 1
+    flight_time: 43200
+    created_at: now
+    updated_at: now
+  - id: 3
+    name: Raymond Pearson
+    email: raymond.pearson56@example.com
+    password: admin
+    rank_id: 1
+    airline_id: 1
+    home_airport_id: 2
+    curr_airport_id: 2
+    flights: 1
+    flight_time: 43200
+    created_at: now
+    updated_at: now
+
+role_user:
+  - user_id: 1
+    role_id: 1
+  - user_id: 1
+    role_id: 2
+  - user_id: 2
+    role_id: 2
+  - user_id: 3
+    role_id: 2
+
+# ranks
+ranks:
+  - id: 1
+    name: New Pilot
+    hours: 0
+  - id: 2
+    name: Junior First Officer
+    hours: 10
+  - id: 3
+    name: First Officer
+    hours: 15
+    auto_approve_acars: 1
+    auto_approve_manual: 1
+  - id: 4
+    name: Senior Captain
+    hours: 20
+    auto_approve_acars: 1
+    auto_approve_manual: 1
+    auto_promote: 0
+
+airlines:
+  - id: 1
+    icao: VMS
+    iata: VM
+    name: phpvms airlines
+    active: 1
+    created_at: now
+    updated_at: now
+
+airports:
+  - id: 1
+    icao: KAUS
+    name: Austin-Bergstrom
+    location: Austin, Texas, USA
+    lat: 30.1945278
+    lon: -97.6698889
+  - id: 2
+    icao: KJFK
+    name: John F Kennedy
+    location: New York, New York, USA
+    lat: 40.6399257
+    lon: -73.7786950
+  - id: 3
+    icao: EGLL
+    name: London Heathrow
+    location: London, England
+    lat: 51.4775
+    lon: -0.4614
+
+#
+aircraft:
+  - id: 1
+    subfleet_id: 1
+    name: Boeing 747-400
+    registration: NC17
+    tail_number: 17
+  - id: 2
+    subfleet_id: 2
+    name: Boeing 777-200
+    registration: NC20
+    tail_number: 20
+
+#aircraft_rank:
+#  - aircraft_id: 1
+#    rank_id: 1
+#  - aircraft_id: 1
+#    rank_id: 2
+#    acars_pay: 100
+#    manual_pay: 50
+
+fares:
+  - id: 1
+    code: Y
+    name: Economy
+    price: 100
+    capacity: 200
+  - id: 2
+    code: B
+    name: Business
+    price: 500
+    capacity: 10
+  - id: 3
+    code: F
+    name: First-Class
+    price: 800
+    capacity: 5
+
+subfleets:
+  - id: 1
+    airline_id: 1
+    name: 747-400 Winglets
+    type: 744W
+  - id: 2
+    airline_id: 1
+    name: 777-200 LR
+    type: 772-LR
+
+# add a few mods to aircraft and fares
+subfleet_fare:
+
+  # Fare classes on the 747
+  - subfleet_id: 1
+    fare_id: 1
+    price: 200
+    capacity: 400
+  - subfleet_id: 1
+    fare_id: 2
+    capacity: 20
+  - subfleet_id: 1
+    fare_id: 3
+    price: 1000
+    capacity: 10
+
+  # Fare classes on the 777
+  - subfleet_id: 2
+    fare_id: 1
+  - subfleet_id: 2
+    fare_id: 3
+    capacity: 10
+
+subfleet_flight:
+  - subfleet_id: 1
+    flight_id: flightid_1
+
+flights:
+  - id: flightid_1
+    airline_id: 1
+    flight_number: 100
+    dpt_airport_id: 1
+    arr_airport_id: 2
+    route: KAUS KJFK
+    dpt_time: 6PM CST
+    arr_time: 11PM EST
+  - id: flightid_2
+    airline_id: 1
+    flight_number: 101
+    dpt_airport_id: 2
+    arr_airport_id: 1
+    dpt_time: 9AM EST
+    arr_time: 12PM CST
+    route: KJFK KAUS
+  - id: flightid_3
+    airline_id: 1
+    flight_number: 200
+    dpt_airport_id: 2
+    arr_airport_id: 3
+    dpt_time: 9AM EST
+    arr_time: 12PM CST
+    route: KJFK KAUS
+
+flight_fields:
+  - id: 1
+    flight_id: flightid_1
+    name: cost index
+    value: 80
+  - id: 2
+    flight_id: flightid_2
+    name: cost index
+    value: 100
+
+user_flights:
+  - id: 100
+    user_id: 1
+    flight_id: flightid_1
+  - id: 101
+    user_id: 1
+    flight_id: flightid_3
+
+pireps:
+  - id: pirepid_1
+    user_id: 1
+    airline_id: 1
+    flight_id: flightid_1
+    aircraft_id: 1
+    dpt_airport_id: 1
+    arr_airport_id: 2
+    flight_time: 21600  # 6 hours
+    status: -1
+    notes: just a pilot report
+  - id: pirepid_2
+    user_id: 1
+    airline_id: 1
+    flight_id: flightid_2
+    aircraft_id: 1
+    dpt_airport_id: 2
+    arr_airport_id: 1
+    flight_time: 21600  # 6 hours
+    status: -1
+    notes: just a pilot report
+
+pirep_fields:
+  - id: 1
+    name: arrival gate
+    required: 0
+
+pirep_field_values:
+  - id: 1
+    pirep_id: pirepid_1
+    name: arrival gate
+    value: B14
+    source: manual
